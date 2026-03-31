@@ -1,6 +1,13 @@
 import { StyleOption, Mode } from './constants';
 
+// Choose your AI provider: Kimi or Minimax
+const USE_MINIMAX = true;
+
 const KIMI_API_URL = 'https://api.moonshot.cn/v1/chat/completions';
+const MINIMAX_API_URL = 'https://api.minimax.chat/v1/chat/completions';
+
+const API_URL = USE_MINIMAX ? MINIMAX_API_URL : KIMI_API_URL;
+const MODEL_NAME = USE_MINIMAX ? 'MiniMax-Text-01' : 'moonshot-v1-8k';
 
 const PROMPTS = {
   to_linkedin: {
@@ -108,14 +115,14 @@ export async function translate({
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 30000);
 
-    const response = await fetch(KIMI_API_URL, {
+    const response = await fetch(API_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        model: 'moonshot-v1-8k',
+        model: MODEL_NAME,
         messages: [{ role: 'user', content: prompt }],
         temperature: 0.7,
       }),

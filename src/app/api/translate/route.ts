@@ -6,8 +6,8 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { text, mode, style } = body;
 
-    // Get API key from environment
-    const apiKey = process.env.KIMI_API_KEY;
+    // Get API key from environment (supports both Kimi and Minimax)
+    const apiKey = process.env.AI_API_KEY || process.env.KIMI_API_KEY;
 
     const result = await translate({
       text,
