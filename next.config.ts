@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  allowedDevOrigins: ['hot-walls-visit.loca.lt', 'loca.lt'],
 };
 
 export default nextConfig;
